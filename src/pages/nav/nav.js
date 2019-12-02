@@ -1,25 +1,58 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import './index.less'
-import { Menu, Icon, Layout, Row, Col } from 'antd'
-
+import { Menu, Icon, Layout, Row, Col, Button, Avatar, Drawer } from 'antd'
+import Login from '../login/login'
+import Register from '../register/register'
 import logo from '@/assets/img/user.gif'
 const { SubMenu } = Menu
 const { Header } = Layout
+const MenuItemGroup = Menu.ItemGroup
 class Nav extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      current: null,
       menuCurrent: '',
-      navTitle: '首页'
+      navTitle: '首页',
+      register: false,
+      login: false
     }
   }
   componentDidMount() {
-    this.initMenu(this.props.pathname)
+    // 初始化菜单显示
+    this.initMenu(this.props.location.pathname)
+  }
+  handleLoginCancel = () => {
+    this.setState({
+      login: false
+    })
+  }
+  handleRegisterCancel = () => {
+    this.setState({
+      register: false
+    })
+  }
+  handleLogoutClick = e => {
+    console.log(e)
+    this.setState({
+      current: e.key
+    })
+    window.sessionStorage.userInfo = ''
   }
   handleMenu = e => {
     this.setState({
       menuCurrent: e.key
+    })
+  }
+  showLoginModal = () => {
+    this.setState({
+      login: true
+    })
+  }
+  showRegisterModal = () => {
+    this.setState({
+      register: true
     })
   }
 
@@ -55,11 +88,15 @@ class Nav extends Component {
       navTitle = '归档'
     }
     this.setState({
-      navTitle,
+      navTitle: navTitle,
       menuCurrent: key
     })
   }
   render() {
+    let userInfo = ''
+    if (window.sessionStorage.userInfo) {
+      userInfo = JSON.parse(window.sessionStorage.userInfo)
+    }
     return (
       <div>
         <Header
@@ -88,7 +125,7 @@ class Nav extends Component {
                 </div>
               </a>
             </Col>
-            <Col style={{ width: '780px', float: 'left' }}>
+            <Col style={{ width: '700px', float: 'left' }}>
               <Menu
                 theme="light"
                 mode="horizontal"
@@ -127,12 +164,6 @@ class Nav extends Component {
                     项目
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="3">
-                  <Link to="/timeLine">
-                    <Icon type="hourglass" theme="outlined" />
-                    历程
-                  </Link>
-                </Menu.Item>
                 <Menu.Item key="4">
                   <Link to="/message">
                     <Icon type="message" theme="outlined" />
@@ -147,11 +178,79 @@ class Nav extends Component {
                 </Menu.Item>
               </Menu>
             </Col>
+            <Col style={{ textAlign: 'right', width: '260px', float: 'left' }}>
+              {userInfo ? (
+                <Menu
+                  onClick={this.handleLogout}
+                  style={{
+                    width: 220,
+                    lineHeight: '64px',
+                    display: 'inline-block'
+                  }}
+                  selectedKeys={[this.state.current]}
+                  mode="horizontal"
+                >
+                  <SubMenu
+                    title={
+                      <span className="submenu-title-wrapper">
+                        <Avatar
+                          onClick={this.showDrawer}
+                          icon="user"
+                          src={userInfo.avatar}
+                          style={{
+                            backgroundColor: '#87d068',
+                            marginRight: 5
+                          }}
+                        />
+                        {userInfo.name}
+                      </span>
+                    }
+                  >
+                    <MenuItemGroup>
+                      <Menu.Item
+                        key="logout"
+                        onClick={this.handleLogoutClick.bind(this)}
+                      >
+                        退出
+                      </Menu.Item>
+                    </MenuItemGroup>
+                  </SubMenu>
+                </Menu>
+              ) : (
+                <div>
+                  <Button
+                    type="primary"
+                    icon="login"
+                    style={{ marginRight: '15px' }}
+                    onClick={this.showLoginModal.bind(this)}
+                  >
+                    登 录
+                  </Button>
+                  <Button
+                    type="danger"
+                    icon="logout"
+                    style={{ marginRight: '15px' }}
+                    onClick={this.showRegisterModal.bind(this)}
+                  >
+                    注 册
+                  </Button>
+                </div>
+              )}
+            </Col>
           </Row>
         </Header>
+
+        <Login
+          visible={this.state.login}
+          handleCancel={this.handleLoginCancel.bind(this)}
+        />
+        <Register
+          visible={this.state.register}
+          handleCancel={this.handleRegisterCancel.bind(this)}
+        />
       </div>
     )
   }
 }
 
-export default Nav
+export default withRouter(Nav)

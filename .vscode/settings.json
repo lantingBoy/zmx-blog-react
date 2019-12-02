@@ -1,36 +1,12 @@
 {
   "search.followSymlinks": false,
-  "workbench.colorTheme": "An Old Hope",
+  "workbench.colorTheme": "One Dark Pro",
   "editor.multiCursorModifier": "ctrlCmd",
-  "editor.formatOnPaste": true,
-  // 配置文件关联，以便启用对应的智能提示，比如wxss使用css
-  "files.associations": {
-    "*.vue": "vue",
-    "*.wxss": "css"
-  },
-  "editor.minimap.enabled": false,
-  "editor.detectIndentation": false,
-  "files.autoSave": "off",
-  "window.zoomLevel": 0,
+
   "workbench.iconTheme": "vscode-icons",
   //保存时自动格式化
   "editor.formatOnSave": true,
-  "beautify.language": {
-    "js": {
-      "type": ["javascript", "json"],
-      "filename": [".eslintrc", ".jsbeautify"]
-    },
-    "css": ["css", "scss"],
-    "html": ["htm", "html", "vue"]
-  },
-  "sync.gist": "1de18ad5cf056d3bf68517edefde90a4",
 
-  "sync.autoDownload": false,
-  "sync.autoUpload": false,
-
-  "sync.forceDownload": false,
-
-  "sync.quietSync": false,
 
   "[javascript]": {},
   "vsicons.dontShowNewVersionMessage": true,
@@ -42,15 +18,7 @@
   "prettier.semi": false,
   // 如果为true，将使用单引号而不是双引号
   "prettier.singleQuote": true,
-  // 选择 vue 文件中 template 的格式化工具
-  "editor.renderControlCharacters": true,
-  // vetur 的自定义设置
-  "vetur.format.defaultFormatterOptions": {
-    "prettier": {
-      "singleQuote": true,
-      "semi": false
-    }
-  },
+
   /* "editor.fontLigatures": true, */
   "editor.fontFamily": "Operator Mono, Dank Mono, Fira Code Light",
   "search.useIgnoreFiles": false,
@@ -59,7 +27,6 @@
   "git.showInlineOpenFileAction": false,
   "git.confirmSync": false,
   "git.autorefresh": false,
-  "git.promptToSaveFilesBeforeCommit": false,
   "git.showProgress": false,
   "git.detectSubmodules": false,
   // Controls if the diff editor shows the diff side by side or inline
@@ -67,7 +34,7 @@
   // Insert spaces when pressing Tab
   "editor.insertSpaces": true,
   // A multiplier to be used on the `deltaX` and `deltaY` of mouse wheel scroll events
-  "editor.mouseWheelScrollSensitivity": 5,
+
   // 控制前面小点点的显示
   "editor.renderWhitespace": "all",
   // Extensions to be installed by the Extension Manager
@@ -85,7 +52,7 @@
     "**/buildchk.*": true,
     "**/.DS_Store": true
   },
-  "javascript.implicitProjectConfig.experimentalDecorators": true,
+
   // Glob patterns for excluding files and folders in searches
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
